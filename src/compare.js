@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const compareObjects = (object1, object2) => {
+const getDiff = (object1, object2) => {
   const keys = _.uniq([...Object.keys(object1), ...Object.keys(object2)]).sort();
   const diffs = keys
     .reduce((acc, key) => {
@@ -26,4 +26,4 @@ const compareObjects = (object1, object2) => {
   return diffs;
 };
 
-export default compareObjects;
+export default getDiff;

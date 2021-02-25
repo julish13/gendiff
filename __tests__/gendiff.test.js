@@ -1,5 +1,5 @@
 import fs from 'fs';
-import gendiff from '../src/gendiff.js';
+import gendiff from '../src/render.js';
 import getFixturePath from '../src/utils.js';
 
 const expectedFlat = fs.readFileSync(getFixturePath('expected_flat.txt'), 'utf8');

@@ -1,12 +1,5 @@
-import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
-
-const getFileData = (filePath) => {
-  const absolutePath = path.resolve(filePath);
-  const fileData = JSON.parse(fs.readFileSync(absolutePath));
-  return fileData;
-};
+import getFileData from './parsers.js';
 
 const compareObjects = (object1, object2) => {
   const keys = _.uniq([...Object.keys(object1), ...Object.keys(object2)]).sort();

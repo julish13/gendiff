@@ -1,7 +1,7 @@
 ### Вычислитель отличий
 [![Actions Status](https://github.com/julish13/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/julish13/frontend-project-lvl2/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ebabe43d15e22c85dead/maintainability)](https://codeclimate.com/github/julish13/frontend-project-lvl2/maintainability)
-[![ESlint](https://github.com/julish13/frontend-project-lvl2/actions/workflows/ESlint.yml/badge.svg)](https://github.com/julish13/frontend-project-lvl2/actions/workflows/ESlint.yml)
+[![tests](https://github.com/julish13/frontend-project-lvl2/actions/workflows/tests.yml/badge.svg)](https://github.com/julish13/frontend-project-lvl2/actions/workflows/ESlint.yml)
 
 Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменении в конфигурационных файлах.
 

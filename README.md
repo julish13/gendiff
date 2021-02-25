@@ -35,4 +35,4 @@ npm link
 gendiff -h
 ```
 
-[![asciicast](https://asciinema.org/a/d47AmVlKisj5Gge9EZd1lGuh4.svg)](https://asciinema.org/a/d47AmVlKisj5Gge9EZd1lGuh4)
+[![asciicast](https://asciinema.org/a/sxZ3uNekyMpCFUIfjypisGnsz.svg)](https://asciinema.org/a/sxZ3uNekyMpCFUIfjypisGnsz)

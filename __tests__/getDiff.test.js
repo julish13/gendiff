@@ -1,5 +1,5 @@
-import getDiff from '../src/getDiff.js';
 import _ from 'lodash';
+import getDiff from '../src/getDiff.js';
 import getFileData from '../src/parsers.js';
 import getFixturePath from '../src/utils.js';
 
@@ -11,76 +11,75 @@ const testa = (object1, object2) => {
         isDeleted: _.has(object1, key) && !_.has(object2, key),
         isAdded: !_.has(object1, key) && _.has(object2, key),
         isEqual: _.isEqual(object1[key], object2[key]),
-      }
-  
+      };
+
       const root = {
         key,
         value: object1[key],
         status: 'equal',
-      }
+      };
 
       const toArray = (obj) => {
         const keyss = Object.keys(obj);
-        return keyss.reduce((acc, keyy) => {
-          if(!(obj[keyy] instanceof Object) || (obj[keyy] instanceof Array)) {
-            acc.push({ ...root, key: keyy, value: obj[keyy] });
-            return acc;
+        return keyss.reduce((accc, keyy) => {
+          if (!(obj[keyy] instanceof Object) || (obj[keyy] instanceof Array)) {
+            accc.push({ ...root, key: keyy, value: obj[keyy] });
+            return accc;
           }
-          acc.push({ ...root, key: keyy, value: toArray(obj[keyy]) });
-          return acc;
+          accc.push({ ...root, key: keyy, value: toArray(obj[keyy]) });
+          return accc;
         }, []);
-      }
-  
+      };
+
       if (conditions.isDeleted) {
-        if(!(object1[key] instanceof Object) || (object1[key] instanceof Array)) {
+        if (!(object1[key] instanceof Object) || (object1[key] instanceof Array)) {
           acc.push({ ...root, status: 'deleted' });
           return acc;
         }
         acc.push({ ...root, value: toArray(_.cloneDeep(object1[key])), status: 'deleted' });
         return acc;
       }
-  
+
       if (conditions.isAdded) {
-        
-        if(!(object2[key] instanceof Object) || (object2[key] instanceof Array)) {
+        if (!(object2[key] instanceof Object) || (object2[key] instanceof Array)) {
           acc.push({ ...root, value: object2[key], status: 'added' });
           return acc;
         }
         acc.push({ ...root, value: toArray(_.cloneDeep(object2[key])), status: 'added' });
         return acc;
       }
-  
-//оба не объекты: равны
-  
-      if((!(object1[key] instanceof Object) || (object1[key] instanceof Array))
+
+      // оба не объекты: равны
+
+      if ((!(object1[key] instanceof Object) || (object1[key] instanceof Array))
       && (!(object2[key] instanceof Object) || (object2[key] instanceof Array))
       && conditions.isEqual) {
         acc.push(_.cloneDeep(root));
         return acc;
       }
-  
-      //оба объекты: равны, не равны
+
+      // оба объекты: равны, не равны
 
       if (
         (
           (object1[key] instanceof Object) && !(object1[key] instanceof Array)
       && (object2[key] instanceof Object) && !(object2[key] instanceof Array)
-      )
+        )
       ) {
         acc.push({ ...root, value: getDiff(_.cloneDeep(object1[key]), _.cloneDeep(object2[key])) });
         return acc;
       }
 
-      //для первого
+      // для первого
       if (
         !(object1[key] instanceof Object) || (object1[key] instanceof Array)
-        ) {
+      ) {
         acc.push({ ...root, status: 'deleted' });
       } else {
         acc.push({ ...root, value: toArray(_.cloneDeep(object1[key])), status: 'deleted' });
       }
 
-      //для второго
+      // для второго
 
       if (!(object2[key] instanceof Object) || (object2[key] instanceof Array)) {
         acc.push({ ...root, value: object2[key], status: 'added' });
@@ -89,8 +88,6 @@ const testa = (object1, object2) => {
       }
 
       return acc;
-
-  
     }, []);
   return diffs;
 };
@@ -100,7 +97,8 @@ const result = testa(getFileData(jsonRecursiveFilePath1), getFileData(jsonRecurs
 
 test('getDiff', () => {
   expect(getDiff(
-    getFileData(jsonRecursiveFilePath1), 
-    getFileData(jsonRecursiveFilePath2)))
-  .toEqual(result);
+    getFileData(jsonRecursiveFilePath1),
+    getFileData(jsonRecursiveFilePath2),
+  ))
+    .toEqual(result);
 });

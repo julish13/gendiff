@@ -12,7 +12,7 @@
     "url": "git+https://github.com/julish13/frontend-project-lvl2.git"
   },
   "bin": {
-    "gendiff": "bin/gendiff.js"
+    "gendiff": "src/index.js"
   },
   "author": "",
   "license": "ISC",

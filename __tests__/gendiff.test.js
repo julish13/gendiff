@@ -1,5 +1,5 @@
 import fs from 'fs';
-import gendiff from '../src/render.js';
+import genDiff from '../src/index.js';
 import getFixturePath from '../src/utils.js';
 
 const expectedFlat = fs.readFileSync(getFixturePath('expected_flat.txt'), 'utf8');
@@ -10,9 +10,9 @@ const jsonFlatFilePath2 = getFixturePath('flat2.json');
 const ymlFlatFilePath1 = getFixturePath('flat1.yml');
 const ymlFlatFilePath2 = getFixturePath('flat2.yml');
 
-test('gendiff-flat', () => {
-  expect(gendiff(jsonFlatFilePath1, jsonFlatFilePath2)).toBe(expectedFlat);
-  expect(gendiff(ymlFlatFilePath1, ymlFlatFilePath2)).toBe(expectedFlat);
+test('genDiff-flat', () => {
+  expect(genDiff(jsonFlatFilePath1, jsonFlatFilePath2)).toBe(expectedFlat);
+  expect(genDiff(ymlFlatFilePath1, ymlFlatFilePath2)).toBe(expectedFlat);
 });
 
 // const expectedRecursive = fs.readFileSync(getFixturePath('expected_recursive.txt'), 'utf8');
@@ -20,7 +20,7 @@ test('gendiff-flat', () => {
 // const jsonRecursiveFilePath1 = getFixturePath('recursive1.json');
 // const jsonRecursiveFilePath2 = getFixturePath('recursive2.json');
 
-// test('gendiff-recursive', () => {
-//   expect(gendiff(jsonRecursiveFilePath1, jsonRecursiveFilePath2)).toBe(expectedRecursive);
-//   expect(gendiff(ymlRecursiveFilePath1, ymlRecursiveFilePath2)).toBe(expectedRecursive);
+// test('genDiff-recursive', () => {
+//   expect(genDiff(jsonRecursiveFilePath1, jsonRecursiveFilePath2)).toBe(expectedRecursive);
+//   expect(genDiff(ymlRecursiveFilePath1, ymlRecursiveFilePath2)).toBe(expectedRecursive);
 // });

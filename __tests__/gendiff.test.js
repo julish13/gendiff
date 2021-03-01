@@ -2,7 +2,10 @@ import fs from 'fs';
 import genDiff from '../src/index.js';
 import getFixturePath from '../src/utils.js';
 
-const expectedFlat = fs.readFileSync(getFixturePath('expected_flat.txt'), 'utf8');
+const expectedFlat = fs.readFileSync(
+  getFixturePath('expected_flat.txt'),
+  'utf8',
+);
 
 const jsonFlatFilePath1 = getFixturePath('flat1.json');
 const jsonFlatFilePath2 = getFixturePath('flat2.json');

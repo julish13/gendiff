@@ -8,9 +8,7 @@ const getFileData = (filePath) => {
 
   const fileData = fs.readFileSync(absolutePath);
 
-  const parsedData = (format === '.yml')
-    ? yaml.load(fileData)
-    : JSON.parse(fileData);
+  const parsedData = format === '.yml' ? yaml.load(fileData) : JSON.parse(fileData);
 
   return parsedData;
 };

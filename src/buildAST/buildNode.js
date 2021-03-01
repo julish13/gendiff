@@ -4,7 +4,7 @@ import Parent from './Parent.js';
 
 const isObject = (element) => element instanceof Object && !(element instanceof Array);
 
-const buildNodeUpdated = (key, object, status = 'equal') => {
+const buildNodeUpdated = (key, object, level, status = 'default') => {
   if (!_.has(object, key)) {
     return null;
   }
@@ -12,24 +12,25 @@ const buildNodeUpdated = (key, object, status = 'equal') => {
   return isObject(value)
     ? new Parent(
       key,
-      Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value)),
+      Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1)),
+      level,
       status,
     )
-    : new Leaf(key, value, status);
+    : new Leaf(key, value, level, status);
 };
 
-const buildNode = (key, object1, object2, fn) => {
+const buildNode = (key, object1, object2, level, fn) => {
   if (isObject(object1[key]) && isObject(object2[key])) {
-    return new Parent(key, fn(object1[key], object2[key]));
+    return new Parent(key, fn(object1[key], object2[key], level + 1), level);
   }
 
   if (_.isEqual(object1[key], object2[key])) {
-    return new Leaf(key, object1[key]);
+    return new Leaf(key, object1[key], level);
   }
 
   return _.compact([
-    buildNodeUpdated(key, object1, 'deleted'),
-    buildNodeUpdated(key, object2, 'added'),
+    buildNodeUpdated(key, object1, level, 'deleted'),
+    buildNodeUpdated(key, object2, level, 'added'),
   ]);
 };
 

@@ -24,28 +24,27 @@ const makeRecord = (name, data) => {
   )} to ${normalizeValue(newValue)}`;
 };
 
-const formatInner = (data, node, parentPath = '') => {
-  const key = node.getKey();
-  const status = node.getStatus();
-  const path = makePath(key, parentPath);
-  const value = isLeaf(node) ? node.getValue() : node.getChildren();
-
-  if (status !== 'default') {
-    data[path] = _.has(data, path)
-      ? { ...data[path], status: 'updated', newValue: value }
-      : { status, value };
-    data[path].record = makeRecord(path, data[path]);
-    return;
-  }
-  if (!isLeaf(node)) {
-    const children = node.getChildren();
-    children.forEach((child) => formatInner(data, child, path));
-  }
-};
-
 const format = (AST) => {
   const data = {};
-  formatInner(data, AST);
+  const formatInner = (node, parentPath = '') => {
+    const key = node.getKey();
+    const status = node.getStatus();
+    const path = makePath(key, parentPath);
+    const value = isLeaf(node) ? node.getValue() : node.getChildren();
+
+    if (status !== 'default') {
+      data[path] = _.has(data, path)
+        ? { ...data[path], status: 'updated', newValue: value }
+        : { status, value };
+      data[path].record = makeRecord(path, data[path]);
+      return;
+    }
+    if (!isLeaf(node)) {
+      const children = node.getChildren();
+      children.forEach((child) => formatInner(child, path));
+    }
+  };
+  formatInner(AST);
   return Object.values(data)
     .map(({ record }) => record)
     .join('\n');

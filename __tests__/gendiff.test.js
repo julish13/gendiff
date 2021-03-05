@@ -16,14 +16,16 @@ const jsonFilePath2 = getFixturePath('file2.json');
 const ymlFilePath1 = getFixturePath('file1.yml');
 const ymlFilePath2 = getFixturePath('file2.yml');
 
-test('genDiff-stylish', () => {
-  expect(genDiff(jsonFilePath1, jsonFilePath2, 'stylish')).toBe(
-    expectedStylish,
-  );
-  expect(genDiff(ymlFilePath1, ymlFilePath2, 'stylish')).toBe(expectedStylish);
-});
+const formats = [
+  [expectedStylish, 'stylish'],
+  [expectedPlain, 'plain'],
+];
 
-test('genDiff-plain', () => {
-  expect(genDiff(jsonFilePath1, jsonFilePath2, 'plain')).toBe(expectedPlain);
-  expect(genDiff(ymlFilePath1, ymlFilePath2, 'plain')).toBe(expectedPlain);
+describe.each(formats)('testing genDiff with different formats', (expected, format) => {
+  test(`genDiff-${format}`, () => {
+    expect(genDiff(jsonFilePath1, jsonFilePath2, format)).toBe(
+      expected,
+    );
+    expect(genDiff(ymlFilePath1, ymlFilePath2, format)).toBe(expected);
+  });
 });

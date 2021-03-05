@@ -6,9 +6,7 @@ export default class Leaf extends Node {
     this.value = value;
   }
 
-  stringify(format = 'stylish') {
-    if (format === 'stylish') {
-      return `${this.getPrefix()}${this.key}: ${this.value}`;
-    }
+  getValue() {
+    return this.value;
   }
 }

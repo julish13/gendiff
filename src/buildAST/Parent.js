@@ -6,12 +6,7 @@ export default class Parent extends Node {
     this.children = children;
   }
 
-  stringify(format = 'stylish') {
-    if (format === 'stylish') {
-      const prefix = this.getPrefix();
-      return `${prefix}${this.key}: {
-${this.children.map((child) => child.stringify()).join('\n')}
-${' '.repeat(prefix.length)}}`;
-    }
+  getChildren() {
+    return this.children;
   }
 }

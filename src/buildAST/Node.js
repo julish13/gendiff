@@ -1,9 +1,3 @@
-const PREFIXES = {
-  deleted: '  - ',
-  added: '  + ',
-  default: '    ',
-};
-
 export default class Node {
   constructor(key = '', status = 'default', level = 0) {
     this.key = key;
@@ -11,7 +5,15 @@ export default class Node {
     this.level = level;
   }
 
-  getPrefix() {
-    return `${PREFIXES.default.repeat(this.level)}${PREFIXES[this.status]}`;
+  getStatus() {
+    return this.status;
+  }
+
+  getKey() {
+    return this.key;
+  }
+
+  getLevel() {
+    return this.level;
   }
 }

@@ -1,5 +1,5 @@
 import buildAST from './buildAST/buildAST.js';
-import formatter from './formatters/formatter.js';
+import formatter from './formatters/index.js';
 import getFileData from './parsers.js';
 
 const gendiff = (filepath1, filepath2, format) => {

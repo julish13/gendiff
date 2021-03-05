@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Вычислитель отличий",
-  "main": "./bin/gendiff.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "npx -n '--experimental-vm-modules --no-warnings' jest --colors"
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/julish13/frontend-project-lvl2.git"
   },
   "bin": {
-    "gendiff": "src/index.js"
+    "gendiff": "bin/gendiff.js"
   },
   "author": "",
   "license": "ISC",

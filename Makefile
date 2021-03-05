@@ -4,8 +4,10 @@ install:
 publish:
 	npm publish --dry-run
 
-lint:
+prettier:
 	npx prettier --write ./src/ ./__tests__/ ./bin/
+
+lint:
 	npx eslint --fix .
 
 test:

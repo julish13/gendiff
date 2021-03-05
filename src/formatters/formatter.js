@@ -1,8 +1,12 @@
-import formatStylish from './stylish.js';
+import formatterStylish from './stylish.js';
+import formatterPlain from './plain.js';
 
 const formatsMap = {
-  stylish: formatStylish,
+  stylish: formatterStylish,
+  plain: formatterPlain,
 };
-const formatter = (AST, format) => formatsMap[format](AST);
+
+const formatter = (AST, format) => `
+${formatsMap[format](AST)}`;
 
 export default formatter;

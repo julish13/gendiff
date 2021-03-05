@@ -21,7 +21,8 @@ const buildNodeUpdated = (key, object, level, status = 'default') => {
 
 const buildNode = (key, object1, object2, level, fn) => {
   if (isObject(object1[key]) && isObject(object2[key])) {
-    return new Parent(key, fn(object1[key], object2[key], level + 1), level);
+    // return new Parent(key, fn(object1[key], object2[key], level + 1), level);
+    return fn(object1[key], object2[key], key, level);
   }
 
   if (_.isEqual(object1[key], object2[key])) {
@@ -29,7 +30,7 @@ const buildNode = (key, object1, object2, level, fn) => {
   }
 
   return _.compact([
-    buildNodeUpdated(key, object1, level, 'deleted'),
+    buildNodeUpdated(key, object1, level, 'removed'),
     buildNodeUpdated(key, object2, level, 'added'),
   ]);
 };

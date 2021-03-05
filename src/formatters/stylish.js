@@ -1,32 +1,38 @@
-import Leaf from '../buildAST/Leaf';
+import Leaf from '../buildAST/Leaf.js';
 
 const PREFIXES = {
-  deleted: '  - ',
+  removed: '  - ',
   added: '  + ',
   default: '    ',
 };
 
-const getPrefix = (node) => `${PREFIXES.default.repeat(node.getLevel())}${PREFIXES[node.getStatus()]}`;
+const isSeed = (node) => node.getLevel() === 0;
 
-const formatInner = (node) => {
-  const prefix = getPrefix(node);
-  if (node instanceof Leaf) {
-    return `${prefix}${node.getKey()}: ${node.getValue()}`;
+const getPrefix = (node) => {
+  const indentLength = node.getLevel() - 1;
+  const status = node.getStatus();
+  return `${PREFIXES.default.repeat(indentLength)}${PREFIXES[status]}`;
+};
+
+const formatter = (node) => {
+  let prefix = '';
+  let postfix = '';
+  if (!isSeed(node)) {
+    prefix = getPrefix(node);
+    postfix = ': ';
   }
-  return `${prefix}${node.getKey()}: {
-${node
-    .getChildren()
-    .map((child) => formatInner(child))
-    .join('\n')}
+
+  const key = node.getKey();
+  const heading = `${prefix}${key}${postfix}`;
+  if (node instanceof Leaf) {
+    return `${heading}${node.getValue()}`;
+  }
+
+  const children = node.getChildren();
+
+  return `${heading}{
+${children.map(formatter).join('\n')}
 ${' '.repeat(prefix.length)}}`;
 };
 
-const format = (AST) => {
-  const ASTFormatted = AST.map(formatInner).join('\n');
-  return `
-{
-${ASTFormatted}
-}`;
-};
-
-export default format;
+export default formatter;

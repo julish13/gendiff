@@ -1,205 +1,204 @@
-
 {
   "key": "",
-  "status": "default",
-  "level": 0,
   "children": [
     {
       "key": "common",
-      "status": "default",
-      "level": 1,
       "children": [
         {
           "key": "follow",
-          "status": "added",
+          "value": false,
           "level": 2,
-          "value": false
+          "status": "added"
         },
         {
           "key": "setting1",
-          "status": "default",
+          "value": "Value 1",
           "level": 2,
-          "value": "Value 1"
+          "status": "default"
         },
         {
           "key": "setting2",
-          "status": "removed",
+          "value": 200,
           "level": 2,
-          "value": 200
+          "status": "removed"
         },
         {
           "key": "setting3",
-          "status": "removed",
+          "value": true,
           "level": 2,
-          "value": true
+          "status": "removed"
         },
         {
           "key": "setting3",
-          "status": "added",
+          "value": null,
           "level": 2,
-          "value": null
+          "status": "added"
         },
         {
           "key": "setting4",
-          "status": "added",
+          "value": "blah blah",
           "level": 2,
-          "value": "blah blah"
+          "status": "added"
         },
         {
           "key": "setting5",
-          "status": "added",
-          "level": 2,
           "children": [
             {
               "key": "key5",
-              "status": "default",
+              "value": "value5",
               "level": 3,
-              "value": "value5"
+              "status": "default"
             }
-          ]
+          ],
+          "level": 2,
+          "status": "added"
         },
         {
           "key": "setting6",
-          "status": "default",
-          "level": 2,
           "children": [
             {
               "key": "doge",
-              "status": "default",
-              "level": 3,
               "children": [
                 {
                   "key": "wow",
-                  "status": "removed",
+                  "value": "",
                   "level": 4,
-                  "value": ""
+                  "status": "removed"
                 },
                 {
                   "key": "wow",
-                  "status": "added",
+                  "value": "so much",
                   "level": 4,
-                  "value": "so much"
+                  "status": "added"
                 }
-              ]
+              ],
+              "level": 3,
+              "status": "default"
             },
             {
               "key": "key",
-              "status": "default",
+              "value": "value",
               "level": 3,
-              "value": "value"
+              "status": "default"
             },
             {
               "key": "ops",
-              "status": "added",
+              "value": "vops",
               "level": 3,
-              "value": "vops"
+              "status": "added"
             }
-          ]
+          ],
+          "level": 2,
+          "status": "default"
         }
-      ]
+      ],
+      "level": 1,
+      "status": "default"
     },
     {
       "key": "group1",
-      "status": "default",
-      "level": 1,
       "children": [
         {
           "key": "baz",
-          "status": "removed",
+          "value": "bas",
           "level": 2,
-          "value": "bas"
+          "status": "removed"
         },
         {
           "key": "baz",
-          "status": "added",
+          "value": "bars",
           "level": 2,
-          "value": "bars"
+          "status": "added"
         },
         {
           "key": "foo",
-          "status": "default",
+          "value": "bar",
           "level": 2,
-          "value": "bar"
+          "status": "default"
         },
         {
           "key": "nest",
-          "status": "removed",
-          "level": 2,
           "children": [
             {
               "key": "key",
-              "status": "default",
+              "value": "value",
               "level": 3,
-              "value": "value"
+              "status": "default"
             }
-          ]
+          ],
+          "level": 2,
+          "status": "removed"
         },
         {
           "key": "nest",
-          "status": "added",
+          "value": "str",
           "level": 2,
-          "value": "str"
+          "status": "added"
         }
-      ]
+      ],
+      "level": 1,
+      "status": "default"
     },
     {
       "key": "group2",
-      "status": "removed",
-      "level": 1,
       "children": [
         {
           "key": "abc",
-          "status": "default",
+          "value": 12345,
           "level": 2,
-          "value": 12345
+          "status": "default"
         },
         {
           "key": "deep",
-          "status": "default",
-          "level": 2,
           "children": [
             {
               "key": "id",
-              "status": "default",
+              "value": 45,
               "level": 3,
-              "value": 45
+              "status": "default"
             }
-          ]
+          ],
+          "level": 2,
+          "status": "default"
         }
-      ]
+      ],
+      "level": 1,
+      "status": "removed"
     },
     {
       "key": "group3",
-      "status": "added",
-      "level": 1,
       "children": [
         {
           "key": "deep",
-          "status": "default",
-          "level": 2,
           "children": [
             {
               "key": "id",
-              "status": "default",
-              "level": 3,
               "children": [
                 {
                   "key": "number",
-                  "status": "default",
+                  "value": 45,
                   "level": 4,
-                  "value": 45
+                  "status": "default"
                 }
-              ]
+              ],
+              "level": 3,
+              "status": "default"
             }
-          ]
+          ],
+          "level": 2,
+          "status": "default"
         },
         {
           "key": "fee",
-          "status": "default",
+          "value": 100500,
           "level": 2,
-          "value": 100500
+          "status": "default"
         }
-      ]
+      ],
+      "level": 1,
+      "status": "added"
     }
-  ]
+  ],
+  "level": 0,
+  "status": "default"
 }

@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/julish13/frontend-project-lvl2.git"
+    "url": "git+https://github.com/julish13/gendiff.git"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -18,9 +18,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/julish13/frontend-project-lvl2/issues"
+    "url": "https://github.com/julish13/gendiff/issues"
   },
-  "homepage": "https://github.com/julish13/frontend-project-lvl2#readme",
+  "homepage": "https://github.com/julish13/gendiff#readme",
   "devDependencies": {
     "eslint": "7.20.0",
     "eslint-config-airbnb-base": "14.2.1",

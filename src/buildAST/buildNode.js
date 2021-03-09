@@ -2,33 +2,22 @@ import _ from 'lodash';
 
 const isObject = (element) => element instanceof Object && !(element instanceof Array);
 
-const buildParent = (key = '', children = [], level = 0, status = 'default') => ({
-  key,
-  children,
-  level,
-  status,
-});
-
-const buildLeaf = (key = '', value = '', level = 0, status = 'default') => ({
+const buildNodeInner = (key = '', value = '', level = 0, status = 'unchanged') => ({
   key,
   value,
   level,
   status,
 });
 
-const buildNodeUpdated = (key, object, level, status = 'default') => {
+const buildNodeUpdated = (key, object, level, status = 'unchanged') => {
   if (!_.has(object, key)) {
     return null;
   }
   const value = object[key];
-  return isObject(value)
-    ? buildParent(
-      key,
-      Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1)),
-      level,
-      status,
-    )
-    : buildLeaf(key, value, level, status);
+  const newValue = (isObject(object[key]))
+    ? Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1))
+    : value;
+  return buildNodeInner(key, newValue, level, status);
 };
 
 const buildNode = (key, object1, object2, level, fn) => {
@@ -37,7 +26,7 @@ const buildNode = (key, object1, object2, level, fn) => {
   }
 
   if (_.isEqual(object1[key], object2[key])) {
-    return buildLeaf(key, object1[key], level);
+    return buildNodeInner(key, object1[key], level);
   }
 
   return _.compact([
@@ -46,4 +35,4 @@ const buildNode = (key, object1, object2, level, fn) => {
   ]);
 };
 
-export { buildParent, buildNode };
+export { buildNodeInner, buildNode };

@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import Leaf from '../buildAST/Leaf.js';
 
-const isLeaf = (node) => node instanceof Leaf;
+const isLeaf = (node) => _.has(node, 'value');
 
 const makePath = (key, path) => (path === '' ? key : `${path}.${key}`);
 
@@ -27,10 +26,10 @@ const makeRecord = (name, data) => {
 const format = (AST) => {
   const data = {};
   const formatInner = (node, parentPath = '') => {
-    const key = node.getKey();
-    const status = node.getStatus();
+    const key = node.key;
+    const status = node.status;
     const path = makePath(key, parentPath);
-    const value = isLeaf(node) ? node.getValue() : node.getChildren();
+    const value = isLeaf(node) ? node.value : node.children;
 
     if (status !== 'default') {
       data[path] = _.has(data, path)
@@ -40,7 +39,7 @@ const format = (AST) => {
       return;
     }
     if (!isLeaf(node)) {
-      const children = node.getChildren();
+      const children = node.children;
       children.forEach((child) => formatInner(child, path));
     }
   };

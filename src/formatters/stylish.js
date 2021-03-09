@@ -1,4 +1,4 @@
-import Leaf from '../buildAST/Leaf.js';
+import _ from 'lodash';
 
 const PREFIXES = {
   removed: '  - ',
@@ -6,11 +6,13 @@ const PREFIXES = {
   default: '    ',
 };
 
-const isSeed = (node) => node.getLevel() === 0;
+const isLeaf = (node) => _.has(node, 'value');
+
+const isSeed = (node) => node.level === 0;
 
 const getPrefix = (node) => {
-  const indentLength = node.getLevel() - 1;
-  const status = node.getStatus();
+  const indentLength = node.level - 1;
+  const status = node.status;
   return `${PREFIXES.default.repeat(indentLength)}${PREFIXES[status]}`;
 };
 
@@ -22,13 +24,13 @@ const formatter = (node) => {
     postfix = ': ';
   }
 
-  const key = node.getKey();
+  const key = node.key;
   const heading = `${prefix}${key}${postfix}`;
-  if (node instanceof Leaf) {
-    return `${heading}${node.getValue()}`;
+  if (isLeaf(node)) {
+    return `${heading}${node.value}`;
   }
 
-  const children = node.getChildren();
+  const children = node.children;
 
   return `${heading}{
 ${children.map(formatter).join('\n')}

@@ -24,8 +24,7 @@ const ymlFilePath2 = getFixturePath('file2.yml');
 const formats = [
   [expectedStylish, 'stylish'],
   [expectedPlain, 'plain'],
-  [undefined, 'json'],
-  // [expectedJSON, 'json'],
+  [expectedJSON, 'json'],
 ];
 
 describe.each(formats)('testing genDiff with different formats', (expected, format) => {
@@ -36,5 +35,3 @@ describe.each(formats)('testing genDiff with different formats', (expected, form
     expect(genDiff(ymlFilePath1, ymlFilePath2, format)).toBe(expected);
   });
 });
-
-// console.log(JSON.stringify(genDiff(jsonFilePath1, jsonFilePath2, 'plain'), null, '  '));

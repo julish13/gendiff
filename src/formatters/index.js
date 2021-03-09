@@ -1,3 +1,4 @@
+
 import formatterStylish from './stylish.js';
 import formatterPlain from './plain.js';
 
@@ -7,7 +8,11 @@ const formatsMap = {
   json: (AST) => JSON.stringify(AST, null, '  '),
 };
 
-const formatter = (AST, format) => `
-${formatsMap[format](AST)}`;
+const formatter = (AST, format = 'stylish') => {
+  const result = formatsMap[format](AST);
+//   return (result.length === 0) ? '' :`
+// ${result}`;
+  return `${result}`
+}
 
 export default formatter;

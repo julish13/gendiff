@@ -7,10 +7,6 @@ const formatsMap = {
   json: (AST) => JSON.stringify(AST, null, '  '),
 };
 
-const formatter = (AST, format = 'stylish') => {
-  const result = formatsMap[format](AST);
-  // return `${result}`;
-  return result;
-};
+const formatter = (AST, format = 'stylish') => formatsMap[format](AST);
 
 export default formatter;

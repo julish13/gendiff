@@ -32,11 +32,10 @@ const prepareAST = (node, parentPath = '') => {
       .map((child) => prepareAST(child, path))
       .reduce((acc, child) => {
         const value = isLeaf(child) ? child.value : child.children;
-        const indexOfduplicate = acc.findIndex((accChild) => accChild.key === child.key);
-        if (indexOfduplicate === -1) {
-          return [...acc, { ...child, value }];
-        }
-        return [...acc.slice(0, -1), { ...acc[indexOfduplicate], status: 'updated', newValue: value }];
+        const lastChild = acc[acc.length - 1];
+        return (lastChild?.key !== child.key)
+          ? [...acc, { ...child, value }]
+          : [...acc.slice(0, -1), { ...lastChild, status: 'updated', newValue: value }];
       }, []);
     return { ...node, children: newChildren, path };
   }

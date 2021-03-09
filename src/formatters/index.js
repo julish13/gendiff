@@ -9,7 +9,8 @@ const formatsMap = {
 
 const formatter = (AST, format = 'stylish') => {
   const result = formatsMap[format](AST);
-  return `${result}`;
+  // return `${result}`;
+  return result;
 };
 
 export default formatter;

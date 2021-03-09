@@ -10,43 +10,53 @@ const normalizeValue = (value) => {
   return value;
 };
 
-const makeRecord = (name, data) => {
-  const { status, value, newValue = null } = data;
+const makeRecord = (name, status, value, newValue) => {
   if (status === 'added') {
     return `Property '${name}' was added with value: ${normalizeValue(value)}`;
   }
   if (status === 'removed') {
     return `Property '${name}' was removed`;
   }
-  return `Property '${name}' was updated. From ${normalizeValue(
-    value,
-  )} to ${normalizeValue(newValue)}`;
+  if (status === 'updated') {
+    return `Property '${name}' was updated. From ${normalizeValue(value)} to ${normalizeValue(newValue)}`;
+  }
+  return null;
 };
 
-const format = (AST) => {
-  const data = {};
-  const formatInner = (node, parentPath = '') => {
-    const { key } = node;
-    const { status } = node;
-    const path = makePath(key, parentPath);
-    const value = isLeaf(node) ? node.value : node.children;
-
-    if (status !== 'default') {
-      data[path] = _.has(data, path)
-        ? { ...data[path], status: 'updated', newValue: value }
-        : { status, value };
-      data[path].record = makeRecord(path, data[path]);
-      return;
-    }
-    if (!isLeaf(node)) {
-      const { children } = node;
-      children.forEach((child) => formatInner(child, path));
-    }
-  };
-  formatInner(AST);
-  return Object.values(data)
-    .map(({ record }) => record)
-    .join('\n');
+const prepareAST = (node, parentPath = '') => {
+  const { key } = node;
+  const path = makePath(key, parentPath);
+  if (!isLeaf(node)) {
+    const { children } = node;
+    const newChildren = children
+      .map((child) => prepareAST(child, path))
+      .reduce((acc, child) => {
+        const value = isLeaf(child) ? child.value : child.children;
+        const indexOfduplicate = acc.findIndex((accChild) => accChild.key === child.key);
+        if (indexOfduplicate === -1) {
+          return [...acc, { ...child, value }];
+        }
+        return [...acc.slice(0, -1), { ...acc[indexOfduplicate], status: 'updated', newValue: value }];
+      }, []);
+    return { ...node, children: newChildren, path };
+  }
+  return { ...node, path };
 };
+
+const formatInner = (AST) => AST.reduce((acc, child) => {
+  const {
+    path, status, value, newValue = null,
+  } = child;
+  if (status !== 'default') {
+    return [...acc, makeRecord(path, status, value, newValue)];
+  }
+  if (Array.isArray(value)) {
+    const records = formatInner(value);
+    return [...acc, ...records];
+  }
+  return acc;
+}, []);
+
+const format = (AST) => (formatInner(prepareAST(AST).children)).join('\n');
 
 export default format;

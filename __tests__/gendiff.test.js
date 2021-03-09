@@ -35,3 +35,5 @@ describe.each(formats)('testing genDiff with different formats', (expected, form
     expect(genDiff(ymlFilePath1, ymlFilePath2, format)).toBe(expected);
   });
 });
+
+// console.log(JSON.stringify(genDiff(jsonFilePath1, jsonFilePath2, 'plain'), null, '  '));

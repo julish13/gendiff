@@ -16,7 +16,9 @@ const makeRecord = (name, status, value, newValue) => {
     return `Property '${name}' was removed`;
   }
   if (status === 'updated') {
-    return `Property '${name}' was updated. From ${stringifyValue(value)} to ${stringifyValue(newValue)}`;
+    return `Property '${name}' was updated. From ${stringifyValue(
+      value,
+    )} to ${stringifyValue(newValue)}`;
   }
   return null;
 };
@@ -30,9 +32,12 @@ const prepareAST = (node, parentPath = '') => {
       .reduce((acc, child) => {
         const { value } = child;
         const lastChild = acc[acc.length - 1];
-        return (lastChild?.key !== child.key)
+        return lastChild?.key !== child.key
           ? [...acc, { ...child, value }]
-          : [...acc.slice(0, -1), { ...lastChild, status: 'updated', newValue: value }];
+          : [
+            ...acc.slice(0, -1),
+            { ...lastChild, status: 'updated', newValue: value },
+          ];
       }, []);
     return { ...node, value: newChildren, path };
   }
@@ -53,6 +58,6 @@ const formatInner = (AST) => AST.reduce((acc, child) => {
   return acc;
 }, []);
 
-const format = (AST) => (formatInner(prepareAST(AST).value)).join('\n');
+const format = (AST) => formatInner(prepareAST(AST).value).join('\n');
 
 export default format;

@@ -11,10 +11,7 @@ const expectedPlain = fs.readFileSync(
   'utf8',
 );
 
-const expectedJSON = fs.readFileSync(
-  getFixturePath('expected.json'),
-  'utf8',
-);
+const expectedJSON = fs.readFileSync(getFixturePath('expected.json'), 'utf8');
 
 const jsonFilePath1 = getFixturePath('file1.json');
 const jsonFilePath2 = getFixturePath('file2.json');
@@ -27,11 +24,12 @@ const formats = [
   [expectedJSON, 'json'],
 ];
 
-describe.each(formats)('testing genDiff with different formats', (expected, format) => {
-  test(`genDiff-${format}`, () => {
-    expect(genDiff(jsonFilePath1, jsonFilePath2, format)).toBe(
-      expected,
-    );
-    expect(genDiff(ymlFilePath1, ymlFilePath2, format)).toBe(expected);
-  });
-});
+describe.each(formats)(
+  'testing genDiff with different formats',
+  (expected, format) => {
+    test(`genDiff-${format}`, () => {
+      expect(genDiff(jsonFilePath1, jsonFilePath2, format)).toBe(expected);
+      expect(genDiff(ymlFilePath1, ymlFilePath2, format)).toBe(expected);
+    });
+  },
+);

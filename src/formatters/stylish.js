@@ -15,8 +15,8 @@ const getPrefix = (node) => {
 };
 
 const formatter = (node) => {
-  const prefix = (isSeed(node)) ? '' : getPrefix(node);
-  const postfix = (isSeed(node)) ? '' : ': ';
+  const prefix = isSeed(node) ? '' : getPrefix(node);
+  const postfix = isSeed(node) ? '' : ': ';
 
   const { key, value } = node;
   const heading = `${prefix}${key}${postfix}`;

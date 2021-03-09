@@ -2,7 +2,12 @@ import _ from 'lodash';
 
 const isObject = (element) => element instanceof Object && !(element instanceof Array);
 
-const buildNodeInner = (key = '', value = '', level = 0, status = 'unchanged') => ({
+const buildNodeInner = (
+  key = '',
+  value = '',
+  level = 0,
+  status = 'unchanged',
+) => ({
   key,
   value,
   level,
@@ -14,7 +19,7 @@ const buildNodeUpdated = (key, object, level, status = 'unchanged') => {
     return null;
   }
   const value = object[key];
-  const newValue = (isObject(object[key]))
+  const newValue = isObject(object[key])
     ? Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1))
     : value;
   return buildNodeInner(key, newValue, level, status);

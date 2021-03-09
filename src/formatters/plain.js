@@ -26,8 +26,8 @@ const makeRecord = (name, data) => {
 const format = (AST) => {
   const data = {};
   const formatInner = (node, parentPath = '') => {
-    const key = node.key;
-    const status = node.status;
+    const { key } = node;
+    const { status } = node;
     const path = makePath(key, parentPath);
     const value = isLeaf(node) ? node.value : node.children;
 
@@ -39,7 +39,7 @@ const format = (AST) => {
       return;
     }
     if (!isLeaf(node)) {
-      const children = node.children;
+      const { children } = node;
       children.forEach((child) => formatInner(child, path));
     }
   };

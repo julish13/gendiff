@@ -1,4 +1,3 @@
-
 import formatterStylish from './stylish.js';
 import formatterPlain from './plain.js';
 
@@ -10,7 +9,7 @@ const formatsMap = {
 
 const formatter = (AST, format = 'stylish') => {
   const result = formatsMap[format](AST);
-  return `${result}`
-}
+  return `${result}`;
+};
 
 export default formatter;

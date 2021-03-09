@@ -2,23 +2,19 @@ import _ from 'lodash';
 
 const isObject = (element) => element instanceof Object && !(element instanceof Array);
 
-const buildParent = (key = '', children = [], level = 0, status = 'default') => {
-  return ({
-    key,
-    children,
-    level,
-    status
-  })
-}
+const buildParent = (key = '', children = [], level = 0, status = 'default') => ({
+  key,
+  children,
+  level,
+  status,
+});
 
-const buildLeaf = (key = '', value = '', level = 0, status = 'default') => {
-  return ({
-    key,
-    value,
-    level,
-    status
-  })
-}
+const buildLeaf = (key = '', value = '', level = 0, status = 'default') => ({
+  key,
+  value,
+  level,
+  status,
+});
 
 const buildNodeUpdated = (key, object, level, status = 'default') => {
   if (!_.has(object, key)) {

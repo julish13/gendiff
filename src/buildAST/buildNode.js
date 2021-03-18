@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-const isObject = (element) => element instanceof Object && !(element instanceof Array);
-
 const buildNodeInner = (
   key = '',
   value = '',
@@ -19,14 +17,14 @@ const buildNodeUpdated = (key, object, level, status = 'unchanged') => {
     return null;
   }
   const value = object[key];
-  const newValue = isObject(object[key])
+  const newValue = _.isPlainObject(object[key])
     ? Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1))
     : value;
   return buildNodeInner(key, newValue, level, status);
 };
 
 const buildNode = (key, object1, object2, level, fn) => {
-  if (isObject(object1[key]) && isObject(object2[key])) {
+  if (_.isPlainObject(object1[key]) && _.isPlainObject(object2[key])) {
     return fn(object1[key], object2[key], key, level);
   }
 

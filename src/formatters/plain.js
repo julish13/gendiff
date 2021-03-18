@@ -8,14 +8,14 @@ const stringifyValue = (value) => {
   return value;
 };
 
-const makeRecord = (name, status, value, newValue) => {
-  if (status === 'added') {
+const makeRecord = (name, type, value, newValue) => {
+  if (type === 'added') {
     return `Property '${name}' was added with value: ${stringifyValue(value)}`;
   }
-  if (status === 'removed') {
+  if (type === 'removed') {
     return `Property '${name}' was removed`;
   }
-  if (status === 'updated') {
+  if (type === 'updated') {
     return `Property '${name}' was updated. From ${stringifyValue(
       value,
     )} to ${stringifyValue(newValue)}`;
@@ -36,7 +36,7 @@ const prepareAST = (node, parentPath = '') => {
           ? [...acc, { ...child, value }]
           : [
             ...acc.slice(0, -1),
-            { ...lastChild, status: 'updated', newValue: value },
+            { ...lastChild, type: 'updated', newValue: value },
           ];
       }, []);
     return { ...node, value: newChildren, path };
@@ -46,10 +46,10 @@ const prepareAST = (node, parentPath = '') => {
 
 const formatInner = (AST) => AST.reduce((acc, child) => {
   const {
-    path, status, value, newValue = null,
+    path, type, value, newValue = null,
   } = child;
-  if (status !== 'unchanged') {
-    return [...acc, makeRecord(path, status, value, newValue)];
+  if (type !== 'unchanged') {
+    return [...acc, makeRecord(path, type, value, newValue)];
   }
   if (isNested(child)) {
     const records = formatInner(value);

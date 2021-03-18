@@ -5,32 +5,32 @@
       {
         "key": "follow",
         "value": false,
-        "status": "added"
+        "type": "added"
       },
       {
         "key": "setting1",
         "value": "Value 1",
-        "status": "unchanged"
+        "type": "unchanged"
       },
       {
         "key": "setting2",
         "value": 200,
-        "status": "removed"
+        "type": "removed"
       },
       {
         "key": "setting3",
         "value": true,
-        "status": "removed"
+        "type": "removed"
       },
       {
         "key": "setting3",
         "value": null,
-        "status": "added"
+        "type": "added"
       },
       {
         "key": "setting4",
         "value": "blah blah",
-        "status": "added"
+        "type": "added"
       },
       {
         "key": "setting5",
@@ -38,10 +38,10 @@
           {
             "key": "key5",
             "value": "value5",
-            "status": "unchanged"
+            "type": "unchanged"
           }
         ],
-        "status": "added"
+        "type": "added"
       },
       {
         "key": "setting6",
@@ -52,31 +52,31 @@
               {
                 "key": "wow",
                 "value": "",
-                "status": "removed"
+                "type": "removed"
               },
               {
                 "key": "wow",
                 "value": "so much",
-                "status": "added"
+                "type": "added"
               }
             ],
-            "status": "unchanged"
+            "type": "unchanged"
           },
           {
             "key": "key",
             "value": "value",
-            "status": "unchanged"
+            "type": "unchanged"
           },
           {
             "key": "ops",
             "value": "vops",
-            "status": "added"
+            "type": "added"
           }
         ],
-        "status": "unchanged"
+        "type": "unchanged"
       }
     ],
-    "status": "unchanged"
+    "type": "unchanged"
   },
   {
     "key": "group1",
@@ -84,17 +84,17 @@
       {
         "key": "baz",
         "value": "bas",
-        "status": "removed"
+        "type": "removed"
       },
       {
         "key": "baz",
         "value": "bars",
-        "status": "added"
+        "type": "added"
       },
       {
         "key": "foo",
         "value": "bar",
-        "status": "unchanged"
+        "type": "unchanged"
       },
       {
         "key": "nest",
@@ -102,18 +102,18 @@
           {
             "key": "key",
             "value": "value",
-            "status": "unchanged"
+            "type": "unchanged"
           }
         ],
-        "status": "removed"
+        "type": "removed"
       },
       {
         "key": "nest",
         "value": "str",
-        "status": "added"
+        "type": "added"
       }
     ],
-    "status": "unchanged"
+    "type": "unchanged"
   },
   {
     "key": "group2",
@@ -121,7 +121,7 @@
       {
         "key": "abc",
         "value": 12345,
-        "status": "unchanged"
+        "type": "unchanged"
       },
       {
         "key": "deep",
@@ -129,13 +129,13 @@
           {
             "key": "id",
             "value": 45,
-            "status": "unchanged"
+            "type": "unchanged"
           }
         ],
-        "status": "unchanged"
+        "type": "unchanged"
       }
     ],
-    "status": "removed"
+    "type": "removed"
   },
   {
     "key": "group3",
@@ -149,20 +149,20 @@
               {
                 "key": "number",
                 "value": 45,
-                "status": "unchanged"
+                "type": "unchanged"
               }
             ],
-            "status": "unchanged"
+            "type": "unchanged"
           }
         ],
-        "status": "unchanged"
+        "type": "unchanged"
       },
       {
         "key": "fee",
         "value": 100500,
-        "status": "unchanged"
+        "type": "unchanged"
       }
     ],
-    "status": "added"
+    "type": "added"
   }
 ]

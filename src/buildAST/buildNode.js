@@ -4,15 +4,15 @@ const buildNodeInner = (
   key = '',
   value = '',
   level = 0,
-  status = 'unchanged',
+  type = 'unchanged',
 ) => ({
   key,
   value,
   level,
-  status,
+  type,
 });
 
-const buildNodeUpdated = (key, object, level, status = 'unchanged') => {
+const buildNodeUpdated = (key, object, level, type = 'unchanged') => {
   if (!_.has(object, key)) {
     return null;
   }
@@ -20,7 +20,7 @@ const buildNodeUpdated = (key, object, level, status = 'unchanged') => {
   const newValue = _.isPlainObject(object[key])
     ? Object.keys(value).map((newKey) => buildNodeUpdated(newKey, value, level + 1))
     : value;
-  return buildNodeInner(key, newValue, level, status);
+  return buildNodeInner(key, newValue, level, type);
 };
 
 const buildNode = (key, object1, object2, level, fn) => {

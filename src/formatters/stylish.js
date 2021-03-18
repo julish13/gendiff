@@ -10,8 +10,8 @@ const isSeed = (node) => node.level === 0;
 
 const getPrefix = (node) => {
   const indentLength = node.level - 1;
-  const { status } = node;
-  return `${PREFIXES.unchanged.repeat(indentLength)}${PREFIXES[status]}`;
+  const { type } = node;
+  return `${PREFIXES.unchanged.repeat(indentLength)}${PREFIXES[type]}`;
 };
 
 const formatter = (node) => {

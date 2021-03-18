@@ -8,6 +8,6 @@ const formatsMap = {
   json: formatterJSON,
 };
 
-const formatter = (AST, format = 'stylish') => formatsMap[format](AST);
+const formatter = (AST, format) => formatsMap[format](AST);
 
 export default formatter;

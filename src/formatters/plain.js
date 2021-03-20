@@ -9,18 +9,18 @@ const stringifyValue = (value) => {
 };
 
 const makeRecord = (name, type, value, newValue) => {
-  if (type === 'added') {
-    return `Property '${name}' was added with value: ${stringifyValue(value)}`;
+  switch (type) {
+    case 'added':
+      return `Property '${name}' was added with value: ${stringifyValue(value)}`;
+    case 'removed':
+      return `Property '${name}' was removed`;
+    case 'updated':
+      return `Property '${name}' was updated. From ${stringifyValue(
+        value,
+      )} to ${stringifyValue(newValue)}`;
+    default:
+      return null;
   }
-  if (type === 'removed') {
-    return `Property '${name}' was removed`;
-  }
-  if (type === 'updated') {
-    return `Property '${name}' was updated. From ${stringifyValue(
-      value,
-    )} to ${stringifyValue(newValue)}`;
-  }
-  return null;
 };
 
 const prepareAST = (node, parentPath = '') => {

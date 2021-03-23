@@ -1,32 +1,51 @@
-import isNested from './utils.js';
+import _ from 'lodash';
 
 const PREFIXES = {
   removed: '  - ',
   added: '  + ',
-  unchanged: '    ',
+  default: '    ',
 };
 
-const isSeed = (node) => node.level === 0;
-
-const getPrefix = (node) => {
-  const indentLength = node.level - 1;
-  const { type } = node;
-  return `${PREFIXES.unchanged.repeat(indentLength)}${PREFIXES[type]}`;
-};
-
-const formatter = (node) => {
-  const prefix = isSeed(node) ? '' : getPrefix(node);
-  const postfix = isSeed(node) ? '' : ': ';
-
-  const { key, value } = node;
-  const heading = `${prefix}${key}${postfix}`;
-  if (!isNested(node)) {
-    return `${heading}${value}`;
+const makeRecord = ({ key, value }, level, change = 'default') => {
+  if (!_.isPlainObject(value)) {
+    return `${PREFIXES.default.repeat(level - 1)}${
+      PREFIXES[change]
+    }${key}: ${value}`;
   }
+  const entries = Object.entries(value)
+    .sort()
+    .map(([childKey, childValue]) => makeRecord({ key: childKey, value: childValue }, level + 1));
+  return `${PREFIXES.default.repeat(level - 1)}${PREFIXES[change]}${key}: {
+${entries.join('\n')}
+${PREFIXES.default.repeat(level)}}`;
+};
 
-  return `${heading}{
-${value.map(formatter).join('\n')}
-${' '.repeat(prefix.length)}}`;
+const formatter = (node, level = 0) => {
+  const { key, type } = node;
+
+  switch (type) {
+    case 'nested':
+      return `${PREFIXES.default.repeat(level)}${
+        key === 'root' ? '' : `${key}: `
+      }{
+${node.children.map((child) => formatter(child, level + 1)).join('\n')}
+${PREFIXES.default.repeat(level)}}`;
+    case 'changed': {
+      const result = [];
+      const makeChangedRecord = (value, change) => {
+        result.push(makeRecord({ key, value }, level, change));
+      };
+      if (_.has(node, 'oldValue')) {
+        makeChangedRecord(node.oldValue, 'removed');
+      }
+      if (_.has(node, 'newValue')) {
+        makeChangedRecord(node.newValue, 'added');
+      }
+      return `${result.join('\n')}`;
+    }
+    default:
+      return makeRecord(node, level);
+  }
 };
 
 export default formatter;

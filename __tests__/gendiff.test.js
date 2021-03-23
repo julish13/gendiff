@@ -1,6 +1,11 @@
 import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import getFixturePath from '../src/utils.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const getFixturePath = (filename) => path.resolve(__dirname, '..', '__fixtures__', filename);
 
 const expectedStylish = fs.readFileSync(
   getFixturePath('expected_stylish.txt'),

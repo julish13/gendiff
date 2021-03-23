@@ -1,12 +1,11 @@
 import _ from 'lodash';
 import formatterStylish from './stylish.js';
 import formatterPlain from './plain.js';
-import formatterJSON from './json.js';
 
 const formatters = {
   stylish: formatterStylish,
   plain: formatterPlain,
-  json: formatterJSON,
+  json: (AST) => JSON.stringify(AST, null, '  '),
 };
 
 const formatter = (AST, format) => {

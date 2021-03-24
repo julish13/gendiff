@@ -16,38 +16,34 @@ const makeRecord = (name, type, value, newValue) => {
       )}`;
     case 'removed':
       return `Property '${name}' was removed`;
-    case 'updated':
+    default:
       return `Property '${name}' was updated. From ${stringifyValue(
         value,
       )} to ${stringifyValue(newValue)}`;
-    default:
-      return null;
   }
 };
 
-const format = (AST) => {
-  const result = [];
-  const formatInner = (node, parentPath = '') => {
-    const { type } = node;
-    const key = (node.key === 'root') ? '' : node.key;
-    const path = makePath(key, parentPath);
-    if (type === 'nested') {
-      node.children.forEach((child) => formatInner(child, path));
+const formatter = (node, parentPath = '') => {
+  const { type } = node;
+  if (type === 'unchanged') {
+    return null;
+  }
+  const key = (node.key === 'root') ? '' : node.key;
+  const path = makePath(key, parentPath);
+  if (type === 'changed') {
+    const { oldValue, newValue } = node;
+    if (!_.has(node, 'newValue')) {
+      return makeRecord(path, 'removed', oldValue);
     }
-    if (type === 'changed') {
-      const oldValue = node.oldValue ?? null;
-      const newValue = node.newValue ?? null;
-      if (_.has(node, 'oldValue') && _.has(node, 'newValue')) {
-        result.push(makeRecord(path, 'updated', oldValue, newValue));
-      } else if (_.has(node, 'oldValue')) {
-        result.push(makeRecord(path, 'removed', oldValue));
-      } else {
-        result.push(makeRecord(path, 'added', newValue));
-      }
+    if (!_.has(node, 'oldValue')) {
+      return makeRecord(path, 'added', newValue);
     }
-  };
-  formatInner(AST);
-  return result.join('\n');
+    return makeRecord(path, 'updated', oldValue, newValue);
+  }
+  return node.children
+    .flatMap((child) => formatter(child, path))
+    .filter(((child) => child !== null))
+    .join('\n');
 };
 
-export default format;
+export default formatter;

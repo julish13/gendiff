@@ -8,37 +8,30 @@ const stringifyValue = (value) => {
   return value;
 };
 
-const makeRecord = (name, type, value, newValue) => {
-  switch (type) {
-    case 'added':
-      return `Property '${name}' was added with value: ${stringifyValue(
-        value,
-      )}`;
-    case 'removed':
-      return `Property '${name}' was removed`;
-    default:
-      return `Property '${name}' was updated. From ${stringifyValue(
-        value,
-      )} to ${stringifyValue(newValue)}`;
-  }
-};
-
 const formatter = (node, parentPath = '') => {
   const { type } = node;
   const key = (node.key === 'root') ? '' : node.key;
   const path = makePath(key, parentPath);
+
+  const statement = `Property '${path}' was ${type}`;
   switch (type) {
-    case 'unchanged':
-      return null;
     case 'nested':
       return node.children
         .flatMap((child) => formatter(child, path))
         .filter(((child) => child !== null))
         .join('\n');
     case 'updated':
-      return makeRecord(path, type, node.oldValue, node.newValue);
+      return `${statement}. From ${stringifyValue(
+        node.oldValue,
+      )} to ${stringifyValue(node.newValue)}`;
+    case 'added':
+      return `${statement} with value: ${stringifyValue(
+        node.value,
+      )}`;
+    case 'removed':
+      return statement;
     default:
-      return makeRecord(path, type, node.value);
+      return null;
   }
 };
 

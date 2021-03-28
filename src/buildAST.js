@@ -20,15 +20,15 @@ const buildNode = (object1, object2) => _.sortBy(_.union(
       };
     }
 
-    const nodeChanged = { key, type: 'changed' };
-
     if (!_.has(object2, key)) {
-      return { ...nodeChanged, oldValue: object1[key] };
+      return { key, type: 'removed', value: object1[key] };
     }
     if (!_.has(object1, key)) {
-      return { ...nodeChanged, newValue: object2[key] };
+      return { key, type: 'added', value: object2[key] };
     }
-    return { ...nodeChanged, oldValue: object1[key], newValue: object2[key] };
+    return {
+      key, type: 'updated', oldValue: object1[key], newValue: object2[key],
+    };
   });
 
 const buildAST = (object1, object2) => ({

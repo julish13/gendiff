@@ -7,8 +7,8 @@
       "children": [
         {
           "key": "follow",
-          "type": "changed",
-          "newValue": false
+          "type": "added",
+          "value": false
         },
         {
           "key": "setting1",
@@ -17,24 +17,24 @@
         },
         {
           "key": "setting2",
-          "type": "changed",
-          "oldValue": 200
+          "type": "removed",
+          "value": 200
         },
         {
           "key": "setting3",
-          "type": "changed",
+          "type": "updated",
           "oldValue": true,
           "newValue": null
         },
         {
           "key": "setting4",
-          "type": "changed",
-          "newValue": "blah blah"
+          "type": "added",
+          "value": "blah blah"
         },
         {
           "key": "setting5",
-          "type": "changed",
-          "newValue": {
+          "type": "added",
+          "value": {
             "key5": "value5"
           }
         },
@@ -46,7 +46,7 @@
               "children": [
                 {
                   "key": "wow",
-                  "type": "changed",
+                  "type": "updated",
                   "oldValue": "",
                   "newValue": "so much"
                 }
@@ -60,8 +60,8 @@
             },
             {
               "key": "ops",
-              "type": "changed",
-              "newValue": "vops"
+              "type": "added",
+              "value": "vops"
             }
           ],
           "type": "nested"
@@ -74,7 +74,7 @@
       "children": [
         {
           "key": "baz",
-          "type": "changed",
+          "type": "updated",
           "oldValue": "bas",
           "newValue": "bars"
         },
@@ -85,7 +85,7 @@
         },
         {
           "key": "nest",
-          "type": "changed",
+          "type": "updated",
           "oldValue": {
             "key": "value"
           },
@@ -96,8 +96,8 @@
     },
     {
       "key": "group2",
-      "type": "changed",
-      "oldValue": {
+      "type": "removed",
+      "value": {
         "abc": 12345,
         "deep": {
           "id": 45
@@ -106,8 +106,8 @@
     },
     {
       "key": "group3",
-      "type": "changed",
-      "newValue": {
+      "type": "added",
+      "value": {
         "deep": {
           "id": {
             "number": 45

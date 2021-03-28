@@ -25,25 +25,21 @@ const makeRecord = (name, type, value, newValue) => {
 
 const formatter = (node, parentPath = '') => {
   const { type } = node;
-  if (type === 'unchanged') {
-    return null;
-  }
   const key = (node.key === 'root') ? '' : node.key;
   const path = makePath(key, parentPath);
-  if (type === 'changed') {
-    const { oldValue, newValue } = node;
-    if (!_.has(node, 'newValue')) {
-      return makeRecord(path, 'removed', oldValue);
-    }
-    if (!_.has(node, 'oldValue')) {
-      return makeRecord(path, 'added', newValue);
-    }
-    return makeRecord(path, 'updated', oldValue, newValue);
+  switch (type) {
+    case 'unchanged':
+      return null;
+    case 'nested':
+      return node.children
+        .flatMap((child) => formatter(child, path))
+        .filter(((child) => child !== null))
+        .join('\n');
+    case 'updated':
+      return makeRecord(path, type, node.oldValue, node.newValue);
+    default:
+      return makeRecord(path, type, node.value);
   }
-  return node.children
-    .flatMap((child) => formatter(child, path))
-    .filter(((child) => child !== null))
-    .join('\n');
 };
 
 export default formatter;

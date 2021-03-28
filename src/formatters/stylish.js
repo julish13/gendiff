@@ -23,25 +23,21 @@ const formatter = (node, level = 0) => {
   const { key, type } = node;
 
   switch (type) {
+    case 'unchanged':
+      return makeRecord(node, level);
     case 'nested':
       return `${PREFIXES.default.repeat(level)}${
         key === 'root' ? '' : `${key}: `
       }{
 ${node.children.map((child) => formatter(child, level + 1)).join('\n')}
 ${PREFIXES.default.repeat(level)}}`;
-    case 'changed':
-      if (!_.has(node, 'newValue')) {
-        return makeRecord({ key, value: node.oldValue }, level, 'removed');
-      }
-      if (!_.has(node, 'oldValue')) {
-        return makeRecord({ key, value: node.newValue }, level, 'added');
-      }
+    case 'updated':
       return [
         makeRecord({ key, value: node.oldValue }, level, 'removed'),
         makeRecord({ key, value: node.newValue }, level, 'added'),
       ].join('\n');
     default:
-      return makeRecord(node, level);
+      return makeRecord(node, level, type);
   }
 };
 

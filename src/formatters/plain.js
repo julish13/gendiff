@@ -13,7 +13,6 @@ const formatter = (node, parentPath = '') => {
   const key = (node.key === 'root') ? '' : node.key;
   const path = makePath(key, parentPath);
 
-  const statement = `Property '${path}' was ${type}`;
   switch (type) {
     case 'nested':
       return node.children
@@ -21,15 +20,15 @@ const formatter = (node, parentPath = '') => {
         .filter(((child) => child !== null))
         .join('\n');
     case 'updated':
-      return `${statement}. From ${stringifyValue(
+      return `Property '${path}' was ${type}. From ${stringifyValue(
         node.oldValue,
       )} to ${stringifyValue(node.newValue)}`;
     case 'added':
-      return `${statement} with value: ${stringifyValue(
+      return `Property '${path}' was ${type} with value: ${stringifyValue(
         node.value,
       )}`;
     case 'removed':
-      return statement;
+      return `Property '${path}' was ${type}`;
     default:
       return null;
   }

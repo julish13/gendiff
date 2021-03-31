@@ -6,29 +6,28 @@ const PREFIXES = {
   unchanged: '    ',
 };
 
-const makeRecord = ({ key, value }, level, type = 'unchanged') => {
-  if (!_.isPlainObject(value)) {
-    return `${PREFIXES.unchanged.repeat(level - 1)}${
-      PREFIXES[type]
-    }${key}: ${value}`;
-  }
-  const entries = _.sortBy(Object.entries(value))
-    .map(([childKey, childValue]) => makeRecord({ key: childKey, value: childValue }, level + 1));
-  return `${PREFIXES.unchanged.repeat(level - 1)}${PREFIXES[type]}${key}: {
-${entries.join('\n')}
-${PREFIXES.unchanged.repeat(level)}}`;
-};
+const makeIndent = (level, string = ' ', indentWidth = 4) => string.repeat(indentWidth).repeat(level);
+
+const stringifyValue = (value, level, cb) => ((!_.isPlainObject(value))
+  ? value
+  : `{
+${_.sortBy(Object.entries(value))
+    .map(([childKey, childValue]) => cb({ key: childKey, value: childValue }, level + 1))
+    .join('\n')}
+${makeIndent(level)}}`);
+
+const makeRecord = ({ key, value }, level, type = 'unchanged') => `${makeIndent(level - 1)}${PREFIXES[type]}${key}: ${stringifyValue(value, level, makeRecord)}`;
 
 const formatter = (node, level = 0) => {
   const { key, type } = node;
 
   switch (type) {
     case 'nested':
-      return `${PREFIXES.unchanged.repeat(level)}${
+      return `${makeIndent(level)}${
         key === 'root' ? '' : `${key}: `
       }{
 ${node.children.map((child) => formatter(child, level + 1)).join('\n')}
-${PREFIXES.unchanged.repeat(level)}}`;
+${makeIndent(level)}}`;
     case 'updated':
       return [
         makeRecord({ key, value: node.oldValue }, level, 'removed'),

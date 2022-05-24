@@ -1,33 +1,33 @@
-# Вычислитель отличий
+# Diff generator
 [![Actions Status](https://github.com/julish13/gendiff/workflows/hexlet-check/badge.svg)](https://github.com/julish13/gendiff/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e585564cb6ca1ead53c6/maintainability)](https://codeclimate.com/github/julish13/gendiff/maintainability)
 [![Node CI](https://github.com/julish13/gendiff/actions/workflows/tests.yml/badge.svg)](https://github.com/julish13/gendiff/actions/workflows/tests.yml)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e585564cb6ca1ead53c6/test_coverage)](https://codeclimate.com/github/julish13/gendiff/test_coverage)
 
-Вычислитель отличий – программа, определяющая разницу между двумя структурами данных. Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменений в конфигурационных файлах.
+Diff generator is a program that determines the difference between two data structures. A similar mechanism is used in tests' output or while tracking changes in configuration files.
 
-Возможности утилиты:
+Features:
 
-- поддержка разных входных форматов: yaml, json;
-- генерация отчета в различных форматах: plain text, stylish и json;
+- different input formats: yaml, json;
+- different report generation formats: plain text, stylish and json;
 
-### В рамках проекта усвоила:
+### While working on the project I learned:
 
-- работа с файловой структурой в Node.js;
-- работа с древовидными структурами данных;
-- автоматическое тестирование (Jest);
-- создание архитектуры приложения на JavaScript.
+- working with file structure in Node.js;
+- working with tree-like data structures;
+- automatic testing (Jest);
+- building application architecture in JavaScript.
 
-## Системные требования
+## System requirements
 
- - Bash / Zsh
- - Make
- - Git
- - Node.js
+- bash / zsh
+- Make
+- Git
+- Node.js
 
-## Установка
+## Installation
 
-Для установки выполните следующие команды:
+To install, run the following commands:
 
 ```bash
 git clone git@github.com:julish13/gendiff.git
@@ -36,7 +36,7 @@ make
 npm link
 ```
 
-Для просмотра справочной информации по программе выполните следующие команды:
+To get help information, run the following commands:
 
 ```bash
 gendiff -h
